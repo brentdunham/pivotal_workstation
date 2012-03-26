@@ -34,7 +34,7 @@ end
 
 ruby_block "Update homebrew after install" do
   block do
-    `brew --updaate`
+    `brew update`
   end
 end
 
