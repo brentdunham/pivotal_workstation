@@ -32,11 +32,11 @@ ruby_block "Check that homebrew is running & working" do
   end
 end
 
-ruby_block "Update homebrew after install" do
-  block do
-    `brew update`
-  end
-end
+# ruby_block "Update homebrew after install" do
+#   block do
+#     `brew update`
+#   end
+# end
 
 directory "/usr/local/sbin" do
   owner WS_USER

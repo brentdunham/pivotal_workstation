@@ -32,7 +32,7 @@ ruby_block "mysql_install_db" do
 end
 
 execute "load the mysql plist into the mac daemon startup thing" do
-  command "launchctl load -w #{WS_HOME}/Library/LaunchAgents/com.mysql.mysqld.plist"
+  command "launchctl load -w #{WS_HOME}/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
   user WS_USER
   not_if "launchctl list com.mysql.mysqld"
 end
@@ -47,12 +47,12 @@ ruby_block "Checking that mysql is running" do
   end
 end
 
-execute "set the root password to the default" do
-  command "mysqladmin -uroot password #{DEFAULT_PIVOTAL_MYSQL_PASSWORD}"
-  not_if "mysql -uroot -p#{DEFAULT_PIVOTAL_MYSQL_PASSWORD} -e 'show databases'"
-end
-
-execute "insert time zone info" do
-  command "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -uroot -p#{DEFAULT_PIVOTAL_MYSQL_PASSWORD} mysql"
-  not_if "mysql -uroot -p#{DEFAULT_PIVOTAL_MYSQL_PASSWORD} mysql -e 'select * from time_zone_name' | grep -q UTC"
-end
+# execute "set the root password to the default" do
+#   command "mysqladmin -uroot password #{DEFAULT_PIVOTAL_MYSQL_PASSWORD}"
+#   not_if "mysql -uroot -p#{DEFAULT_PIVOTAL_MYSQL_PASSWORD} -e 'show databases'"
+# end
+#
+# execute "insert time zone info" do
+#   command "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -uroot -p#{DEFAULT_PIVOTAL_MYSQL_PASSWORD} mysql"
+#   not_if "mysql -uroot -p#{DEFAULT_PIVOTAL_MYSQL_PASSWORD} mysql -e 'select * from time_zone_name' | grep -q UTC"
+# end
